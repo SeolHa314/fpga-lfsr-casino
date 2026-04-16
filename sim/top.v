@@ -1,16 +1,20 @@
-`define clkcnt 24'd4
+`define clkcnt 15'd8
+`define debounce_width 4
+
 `include "impl.v"
 
 module top
 (
   input clk,          // clk input
   input rst_n,        // reset input
+  input btn,          // button input
   output [5:0] leds     // 6 LEDS pin
 );
 
   led blinker(
       .sys_clk(clk),
       .sys_rst_n(rst_n),
+      .sys_btn(btn),
       .leds(leds)
   );
   
@@ -23,11 +27,5 @@ module top
     end
     $display("[%0t] Model running...\n", $time);
   end
-
-  // initial begin
-  //   rst_n = 0;
-  //   #10;
-  //   rst_n = 1;
-  // end
 
 endmodule

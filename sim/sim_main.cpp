@@ -3,7 +3,7 @@
 #include <verilated.h>
 
 int main(int argc, char **argv) {
-  int clock_cycles = 200;
+  int clock_cycles = 300;
   Verilated::mkdir("logs");
   const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
 
@@ -17,25 +17,25 @@ int main(int argc, char **argv) {
 
   top->rst_n = !0;
   top->clk = 0;
-  top->leds = 0b111110;
+  // top->leds = 0b111110;
 
   while (clock_cycles > 0) {
     contextp->timeInc(1);
     top->clk = !top->clk;
     if (top->clk) {
-      if (contextp->time() > 40 && contextp->time() < 46) {
-        top->rst_n = !1;
-      } else {
-        top->rst_n = !0;
+      if (contextp->time() == 1) {
+        top->rst_n = 0;
+      } else if (contextp->time() == 21) {
+        top->rst_n = 1;
       }
     }
+
     top->eval();
     clock_cycles -= top->clk;
 
     VL_PRINTF("[%" PRId64 "] clk=%x rst_n=%x\n", contextp->time(), top->clk,
               top->rst_n);
   }
-
   top->final();
 
 #if VM_COVERAGE
@@ -44,4 +44,4 @@ int main(int argc, char **argv) {
 #endif
   contextp->statsPrintSummary();
   return 0;
-};
+}
