@@ -1,8 +1,8 @@
-# Template for `tangnano9k` development
+# Casino Game
 
-Open-source suite for synthesizing, Place & Route, and flashing for `tangnano9k`
-
-~~this slop works!!~~
+Casino game implementation in Verilog.
+Press the button to start, when all LEDs lights up, press the button as soon as possible.
+Your response time will be shown on LEDs by binary form, multiply by 32 to calculate exact milliseconds.
 
 ## Prerequisites
 
